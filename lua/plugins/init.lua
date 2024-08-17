@@ -6,12 +6,6 @@ return {
   },
 
   -- These are some examples, uncomment them if you want to see them work!
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "configs.lspconfig"
-    end,
-  },
   -- ----------------------------
   -- CUSTOM PLUGINS CONFIGURATION
   -- ----------------------------
@@ -26,11 +20,12 @@ return {
   {
     "williamboman/mason.nvim",
     opts = {
-      ensure_installed = {
-        "black",
-        "pyright",
-       },
-    },
+        ensure_installed = { 
+            "lua_ls", 
+            "black",
+            "pyright",
+        },
+      },
   },
   {
     "neovim/nvim-lspconfig",
@@ -52,6 +47,7 @@ return {
     "benlubas/molten-nvim",
     version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
     build = ":UpdateRemotePlugins",
+    lazy = false,
     init = require "custom.configs.molten",
   },
   {

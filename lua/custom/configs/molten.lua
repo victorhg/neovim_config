@@ -3,8 +3,9 @@ return function()
       -- Please see the readme for more configuration options
       vim.g.molten_image_provider = "image.nvim"
       -- MUDAR PARA AALGO MAAIS GENERIICO!!!
-      virtualEnv = "/opt/homebrew/anaconda3/envs/firstTest/share/jupyter/kernels/python3"
-      vim.g.python3_host_prog=vim.fn.expand(virtualEnv)
+      --vEnv = "/opt/homebrew/anaconda3/envs/firstTest/share/jupyter/kernels/python3"
+      vEnv = "/opt/homebrew/anaconda3/envs/firstTest/bin/python3"
+      vim.g.python3_host_prog=vim.fn.expand(vEnv)
 
       -- I find auto open annoying, keep in mind setting this option will require setting
       -- a keybind for `:noautocmd MoltenEnterOutput` to open the output again
