@@ -13,17 +13,18 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     ft = {"python"},
     opts = function()
-      return require "custom.configs.null-ls"
+      return require "configs.null-ls"
     end,
   },
 
   {
     "williamboman/mason.nvim",
     opts = {
-        ensure_installed = { 
-            "lua_ls", 
+        ensure_installed = {
+            "lua_ls",
             "black",
             "pyright",
+            "mypy",
         },
       },
   },
@@ -31,7 +32,7 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       require "configs.lspconfig"
-      require "custom.configs.lspconfig"
+      require "configs.pylspconfig"
     end,
 
   },
@@ -48,7 +49,7 @@ return {
     version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
     build = ":UpdateRemotePlugins",
     lazy = false,
-    init = require "custom.configs.molten",
+    init = require "configs.molten",
   },
   {
       -- see the image.nvim readme for more information about configuring this plugin

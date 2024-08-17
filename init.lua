@@ -1,3 +1,4 @@
+
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
 vim.g.mapleader = " "
 
@@ -11,6 +12,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+--------
 local lazy_config = require "configs.lazy"
 
 -- load plugins
@@ -31,7 +33,27 @@ dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
 require "nvchad.autocmds"
+--require("custom")
+
 
 vim.schedule(function()
   require "mappings"
 end)
+
+
+--- ENABLE LANGUAGE PROVIDERS
+
+local vEnv = "/opt/homebrew/anaconda3/envs/firstTest/bin/python3"
+vim.g.python3_host_prog=vim.fn.expand(vEnv)
+
+local enable_providers = {
+      "python3_provider",
+      -- and so on
+}
+
+for _, plugin in pairs(enable_providers) do
+  local name = "loaded_"..plugin
+  vim.g[name] = nil
+  vim.cmd("runtime " .. plugin)
+end
+
