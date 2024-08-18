@@ -1,4 +1,11 @@
 return {
+{
+  "vhyrro/luarocks.nvim",
+  priority = 1001,
+  opts = { 
+	rocks = { "magick" },
+  },
+},
   {
     "stevearc/conform.nvim",
     -- event = 'BufWritePre', -- uncomment for format on save
@@ -47,6 +54,7 @@ return {
   {
     "benlubas/molten-nvim",
     version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
+    --dependencies = "3rd/image.nvim",
     build = ":UpdateRemotePlugins",
     lazy = false,
     init = require "configs.molten",
