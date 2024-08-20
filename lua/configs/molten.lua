@@ -1,7 +1,6 @@
 return function()
       -- this is an example, not a default. 
       -- Please see the readme for more configuration options
-      vim.g.molten_image_provider = "image.nvim"
       -- MUDAR PARA AALGO MAAIS GENERIICO!!!
       --vEnv = "/opt/homebrew/anaconda3/envs/firstTest/share/jupyter/kernels/python3"
      -- vEnv = "/opt/homebrew/anaconda3/envs/firstTest/bin/python3"
