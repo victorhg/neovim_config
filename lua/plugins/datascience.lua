@@ -104,20 +104,6 @@ return {
       output_extension = "md",
       force_ft = "markdown"
     },
-    opts = {
-      custom_language_formatting = {
-        python = {
-          extension = 'qmd',
-          style = 'quarto',
-          force_ft = 'quarto',
-        },
-        r = {
-          extension = 'qmd',
-          style = 'quarto',
-          force_ft = 'quarto',
-        },
-      },
-    },
   },
 
   { -- send code from python/r/qmd documets to a terminal or REPL
