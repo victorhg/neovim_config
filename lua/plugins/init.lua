@@ -26,14 +26,23 @@ return {
 
   {
     "williamboman/mason.nvim",
-    opts = {
-        ensure_installed = {
-            "lua_ls",
-            "black",
-            "pyright",
-            "mypy",
-        },
-      },
+    dependencies = {
+        "WhoIsSethDaniel/mason-tool-installer.nvim"
+    },
+
+    config = function()
+        require("mason").setup()
+
+        require("mason-tool-installer").setup({
+            ensure_installed = {
+              "lua_ls",
+              "black",
+              "pyright",
+              "mypy",
+            }
+        })
+
+    end
   },
   {
     "neovim/nvim-lspconfig",
@@ -50,13 +59,4 @@ return {
     },
   },
 
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
 }
