@@ -59,53 +59,53 @@ return {
     'quarto-dev/quarto-nvim',
     ft = { 'quarto', 'markdown' },
     dev = false,
-    opts = {},
     dependencies = {
       -- for language features in code cells
       -- configured in lua/plugins/lsp.lua and
       -- added as a nvim-cmp source in lua/plugins/completion.lua
       'jmbuhr/otter.nvim',
     },
-    config = function()
-      local quarto = require("quarto")
-        quarto.setup({
-            lspFeatures = {
-                -- NOTE: put whatever languages you want here:
-                languages = { "r", "python", "rust" },
-                chunks = "all",
-                diagnostics = {
-                    enabled = true,
-                    triggers = { "BufWritePost" },
-                },
-                completion = {
-                    enabled = true,
-                },
-            },
-            keymap = {
-                -- NOTE: setup your own keymaps:
-                hover = "H",
-                definition = "gd",
-                rename = "<leader>rn",
-                references = "gr",
-                format = "<leader>gf",
-            },
-            codeRunner = {
-                enabled = true,
-                default_method = "molten",
-            },
-        })
-        local runner = require("quarto.runner")
-        vim.keymap.set("n", "<localleader>rc", runner.run_cell,  { desc = "run cell", silent = true })
-        vim.keymap.set("n", "<localleader>ra", runner.run_above, { desc = "run cell and above", silent = true })
-        vim.keymap.set("n", "<localleader>rA", runner.run_all,   { desc = "run all cells", silent = true })
-        vim.keymap.set("n", "<localleader>rl", runner.run_line,  { desc = "run line", silent = true })
-        vim.keymap.set("v", "<localleader>r",  runner.run_range, { desc = "run visual range", silent = true })
-        vim.keymap.set("n", "<localleader>RA", function()
-          runner.run_all(true)
-        end,
-        { desc = "run all cells of all languages", silent = true })
-    end,
+    keys = {
 
+      { '<leader>mi', ':MoltenInit<cr>', desc = '[m]olten [i]nit' },
+      {"n", "<localleader>rc", desc = "run cell" },
+      {"n", "<localleader>ra", desc = "run cell and above" },
+      {"n", "<localleader>rA", desc = "run all cells" },
+      {"n", "<localleader>rl", desc = "run line" },
+      {"v", "<localleader>r",  desc = "run visual range" },
+    },
+
+    opts = {
+        lspFeatures = {
+            -- NOTE: put whatever languages you want here:
+            languages = { "r", "python", "rust" },
+            chunks = "all",
+            diagnostics = {
+                enabled = true,
+                triggers = { "BufWritePost" },
+            },
+            completion = {
+                enabled = true,
+            },
+        },
+        keymap = {
+            -- NOTE: setup your own keymaps:
+            hover = "H",
+            definition = "gd",
+            rename = "<leader>rn",
+            references = "gr",
+            format = "<leader>gf",
+        },
+        codeRunner = {
+            enabled = true,
+            default_method = "molten",
+            ft_runners = { 
+              markdown = 'molten',
+              python = 'molten'
+            }
+
+        },
+      }
   },
 
 { -- directly open ipynb files as quarto docuements
