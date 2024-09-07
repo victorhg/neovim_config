@@ -75,7 +75,7 @@ return {
       {"v", "<localleader>r",  desc = "run visual range" },
     },
 
-    opts = {
+    config = {
         lspFeatures = {
             -- NOTE: put whatever languages you want here:
             languages = { "r", "python", "rust" },
