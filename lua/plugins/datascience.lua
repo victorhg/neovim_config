@@ -66,36 +66,49 @@ return {
       -- added as a nvim-cmp source in lua/plugins/completion.lua
       'jmbuhr/otter.nvim',
     },
-    config = {
-        lspFeatures = {
-            -- NOTE: put whatever languages you want here:
-            languages = { "r", "python", "rust" },
-            chunks = "all",
-            diagnostics = {
-                enabled = true,
-                triggers = { "BufWritePost" },
+    config = function()
+      local quarto = require("quarto")
+        quarto.setup({
+            lspFeatures = {
+                -- NOTE: put whatever languages you want here:
+                languages = { "r", "python", "rust" },
+                chunks = "all",
+                diagnostics = {
+                    enabled = true,
+                    triggers = { "BufWritePost" },
+                },
+                completion = {
+                    enabled = true,
+                },
             },
-            completion = {
-                enabled = true,
+            keymap = {
+                -- NOTE: setup your own keymaps:
+                hover = "H",
+                definition = "gd",
+                rename = "<leader>rn",
+                references = "gr",
+                format = "<leader>gf",
             },
-        },
-        keymap = {
-            -- NOTE: setup your own keymaps:
-            hover = "H",
-            definition = "gd",
-            rename = "<leader>rn",
-            references = "gr",
-            format = "<leader>gf",
-        },
-        codeRunner = {
-            enabled = true,
-            default_method = "molten",
-        },
-    }
+            codeRunner = {
+                enabled = true,
+                default_method = "molten",
+            },
+        })
+        local runner = require("quarto.runner")
+        vim.keymap.set("n", "<localleader>rc", runner.run_cell,  { desc = "run cell", silent = true })
+        vim.keymap.set("n", "<localleader>ra", runner.run_above, { desc = "run cell and above", silent = true })
+        vim.keymap.set("n", "<localleader>rA", runner.run_all,   { desc = "run all cells", silent = true })
+        vim.keymap.set("n", "<localleader>rl", runner.run_line,  { desc = "run line", silent = true })
+        vim.keymap.set("v", "<localleader>r",  runner.run_range, { desc = "run visual range", silent = true })
+        vim.keymap.set("n", "<localleader>RA", function()
+          runner.run_all(true)
+        end,
+        { desc = "run all cells of all languages", silent = true })
+    end,
 
   },
 
-  { -- directly open ipynb files as quarto docuements
+{ -- directly open ipynb files as quarto docuements
     -- and convert back behind the scenes
     'GCBallesteros/jupytext.nvim',
     lazy=false,
@@ -104,8 +117,23 @@ return {
       output_extension = "md",
       force_ft = "markdown"
     },
+    opts = {
+      custom_language_formatting = {
+        python = {
+          extension = 'qmd',
+          style = 'quarto',
+          force_ft = 'quarto',
+        },
+        r = {
+          extension = 'qmd',
+          style = 'quarto',
+          force_ft = 'quarto',
+        },
+      },
+    },
   },
 
+  
   { -- send code from python/r/qmd documets to a terminal or REPL
     -- like ipython, R, bash
     'jpalardy/vim-slime',
@@ -210,20 +238,24 @@ return {
         --package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
     --end
   },
+
   {
     'benlubas/molten-nvim',
     lazy = false,
     build = ':UpdateRemotePlugins',
-    init = function ()
---      vim.g.molten_auto_open_output = false
-      vim.g.molten_image_provider = "image.nvim"
-      vim.g.molten_wrap_output = true
-      vim.g.molten_virt_text_output = true
-      vim.g.molten_virt_lines_off_by_1 = true
-
+    init = function()
+      vim.g.molten_image_provider = 'image.nvim'
+      vim.g.molten_output_win_max_height = 20
+      vim.g.molten_auto_open_output = false
     end,
     keys = {
-      --{ '<leader>mr', ':MoltenReevaluateCell<cr>', desc = 'molten re-eval cell' },
+      { '<leader>mi', ':MoltenInit<cr>', desc = '[m]olten [i]nit' },
+      {
+        '<leader>mv',
+        ':<C-u>MoltenEvaluateVisual<cr>',
+        mode = 'v',
+        desc = 'molten eval visual',
+      },
       {'<localleader>me', ':MoltenEvaluateOperator<CR>', desc = 'evaluate operator'},
       {'<localleader>mo', ':noautocmd MoltenEnterOutput<CR>', desc = 'open output window' },
       {'<localleader>mr', ':MoltenReevaluateCell<CR>', desc = 're-eval cell' },
@@ -231,6 +263,9 @@ return {
       {'<localleader>mho', ':MoltenHideOutput<CR>',  desc = 'close output window' },
       {'<localleader>md', ':MoltenDelete<CR>',  desc = 'delete Molten cell' },
       {'<localleader>mi', ':MoltenInit<CR>',  desc = 'init molten' },
+
     },
   },
 }
+
+
