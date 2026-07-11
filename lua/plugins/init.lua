@@ -18,7 +18,7 @@ return {
     dependencies = { "HakonHarnes/img-clip.nvim" },
 
     -- if you're fine with defaults:
-    cmd = { "Pi", "PiContinue", "PiResume", "PiToggleChat", "PiSelectModel", "PiToggleLayout", "PiSendMention", "PiAttention", "PiAbort" },
+    cmd = { "Pi", "PiContinue", "PiResume", "PiToggleChat", "PiSelectModel", "PiToggleLayout", "PiSendMention", "PiAttention", "PiAbort", "PiStop" },
     config = function()
       require("pi").setup()
 
@@ -27,7 +27,7 @@ return {
       -- Global mappings — open / toggle / resume from anywhere.
       vim.keymap.set({ "n", "v" }, "<Leader>pp", function() vim.cmd("Pi layout=side")  end, { desc = "Pi side"  })
       vim.keymap.set({ "n", "v" }, "<Leader>pf", function() vim.cmd("Pi layout=float") end, { desc = "Pi float" })
-      vim.keymap.set({ "n", "v" }, "<Leader>pl", "<Cmd>PiToggleLayout<CR>",                 { desc = "Pi toggle layout" })
+      vim.keymap.set({ "n", "v" }, "<Leader>pl", "<Cmd>PiToggleChat<CR>",                 { desc = "Pi toggle layout" })
       vim.keymap.set({ "n", "v" }, "<Leader>pc", "<Cmd>PiContinue<CR>",                     { desc = "Pi continue last session" })
       vim.keymap.set({ "n", "v" }, "<Leader>pr", "<Cmd>PiResume<CR>",                       { desc = "Pi resume past session" })
       vim.keymap.set({ "n", "v" }, "<Leader>pm", "<Cmd>PiSendMention<CR>",                  { desc = "Pi mention file/selection" })
@@ -42,11 +42,12 @@ return {
       end
 
       -- Shared across all π windows.
+      -- M is the alt key
       vim.api.nvim_create_autocmd("FileType", {
         group = group,
         pattern = { "pi-chat-history", "pi-chat-prompt", "pi-chat-attachments" },
         callback = function(event)
-          map(event.buf, "<C-q>", "<Cmd>PiToggleChat<CR>")
+          map(event.buf, "<C-q>", "<Cmd>PiToggleLayout<CR>")
           map(event.buf, "<M-c>", "<Cmd>PiAbort<CR>")
           map(event.buf, "<C-o>", pi.toggle_history_blocks)
         end,
