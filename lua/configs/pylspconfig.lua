@@ -1,12 +1,12 @@
 local config = require("nvchad.configs.lspconfig")
 
-local on_attach = config.on_attach
-local capabilities = config.capabilities
-
-local lspconfig = require("lspconfig")
-
-lspconfig.pyright.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
+-- We keep the NvChad defaults for consistency
+local opts = {
+  on_attach = config.on_attach,
+  capabilities = config.capabilities,
   filetypes = {"python"},
-})
+}
+
+-- Use the new native LSP config
+vim.lsp.config('pyright', opts)
+vim.lsp.enable('pyright')
