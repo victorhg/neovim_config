@@ -1,11 +1,4 @@
 return {
-{
-  "vhyrro/luarocks.nvim",
-  priority = 1001,
-  opts = { 
-	rocks = { "magick" },
-  },
-},
   {
     "stevearc/conform.nvim",
     -- event = 'BufWritePre', -- uncomment for format on save
