@@ -12,8 +12,7 @@ return {
   --
 
   { 
-    "carderne/pi-nvim",
-    lazy = false
+    "carderne/pi-nvim"
   }
 
 }
