@@ -13,6 +13,6 @@ return {
 
   { 
     "carderne/pi-nvim"
-  }
+    }
 
 }
