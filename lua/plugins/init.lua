@@ -11,9 +11,22 @@ return {
   -- ----------------------------
   --
 
-  { 
+  {
     "carderne/pi-nvim"
+  },
+
+  -- Nvim 0.12 bundles its own markdown treesitter parser; nvim-treesitter's
+  -- injection queries (#offset! predicate) crash against the new runtime.
+  -- Disable nvim-treesitter highlight for markdown and let Neovim's builtin handle it.
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      highlight = {
+        enable = true,
+        disable = { "markdown", "markdown_inline" },
+      },
     },
+  },
 
 
   {
