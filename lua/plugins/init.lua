@@ -12,12 +12,16 @@ return {
   --
 
   {
-     'MeanderingProgrammer/render-markdown.nvim',
+    'MeanderingProgrammer/render-markdown.nvim', 
+    ft = { "markdown" },
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },            -- if you use the mini.nvim suite
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
-    opts = {},
+    opts = {
+      render_modes = {'n', 'c', 't'}
+    },
   },
+
   {
     "carderne/pi-nvim"
   },
@@ -27,10 +31,12 @@ return {
   -- Disable nvim-treesitter highlight for markdown and let Neovim's builtin handle it.
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     opts = {
       highlight = {
         enable = true,
-        disable = { "markdown", "markdown_inline" },
+        -- Do not disable markdown, let render-markdown handle it
+        -- disable = { "markdown", "markdown_inline" },
       },
     },
   },
